@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useStore } from "@nanostores/react";
+import { invoke } from "@tauri-apps/api/core";
 import { DirEntry } from "@tauri-apps/plugin-fs";
 import { atom } from "nanostores";
 
@@ -15,3 +16,14 @@ export const setDirectoryData = (data: DirEntry[] | null) => $dirData.set(data);
 export const getDirectoryData = () => useStore($dirData);
 export const setDirectory = (data: string | null) => $dir.set(data);
 export const getDirectory = () => useStore($dir);
+
+//for secondary windows
+
+export async function loadMapFromMain() {
+    const map = await invoke("get_map");
+    return map;
+}
+
+export async function saveMapToMain(map: any) {
+    await invoke("set_map", { newMap: map });
+}

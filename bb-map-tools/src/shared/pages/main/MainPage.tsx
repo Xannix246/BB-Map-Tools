@@ -70,7 +70,10 @@ const MainPage = () => {
             </div>
             <div className="relative h-full">
                 <div className="absolute right-0 bottom-0">
-                    <Button className="bg-black/70 text-xl h-fit">Save changes</Button>
+                    <div className="flex gap-5">
+                        <Button className="bg-black/70 text-xl h-fit">Save as json</Button>
+                        <Button className="bg-black/70 text-xl h-fit">Save changes</Button>
+                    </div>
                 </div>
             </div>
         </div>

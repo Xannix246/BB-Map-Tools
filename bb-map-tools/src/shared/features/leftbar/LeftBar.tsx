@@ -1,9 +1,9 @@
 import Button from "@/base/button/Button";
-import { deserializeAndSave, openPartEditor, readDirData, serializeAndSave } from "./bar-utils";
+import { deserializeAndSave, openJson, openPartEditor, readDirData, serializeAndSave } from "./bar-utils";
 
 const LeftBar = () => {
     return (
-        <div className="h-screen min-w-[300px] w-[300px] pt-32 pr-2 pb-2 flex flex-col gap-15">
+        <div className="h-screen min-w-[300px] w-[300px] pt-22 pr-2 pb-2 flex flex-col gap-15">
             <div className="flex flex-col gap-3">
                 <Button 
                     className="btn-left-menu"
@@ -13,7 +13,14 @@ const LeftBar = () => {
                     className="btn-left-menu"
                     onClick={async () => await openPartEditor()}
                 >Edit part list</Button>
-                <Button className="btn-left-menu">Upload or update map</Button>
+                {/* <Button className="btn-left-menu" disabled={true}>Upload/update map(wip)</Button> */}
+                <Button 
+                    className="btn-left-menu"
+                    onClick={openJson}
+                >Load json</Button>
+                <Button 
+                    className="btn-left-menu"
+                >Save json</Button>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -25,6 +32,9 @@ const LeftBar = () => {
                     className="btn-left-menu"
                     onClick={serializeAndSave}
                 >Serialize and save</Button>
+                <Button 
+                    className="btn-left-menu"
+                >Open in text editor</Button>
             </div>
 
             <div className="flex flex-col gap-3 h-full justify-end mb-5">

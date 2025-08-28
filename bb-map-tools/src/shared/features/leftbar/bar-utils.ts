@@ -4,7 +4,7 @@ import { deserializeMap } from '@utils/deserialize';
 import { appDataDir } from '@tauri-apps/api/path';
 import { Buffer } from "buffer";
 import { serializeMap } from '@utils/serialize';
-import { $dir, setDirectory, setDirectoryData, setMap } from '@/store';
+import { $dir, $dirData, $map, loadMapFromMain, saveMapToMain } from '@/store';
 import { message } from '@tauri-apps/plugin-dialog';
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
@@ -41,7 +41,7 @@ export async function deserializeAndSave() {
             ],
         });
 
-        if(!outputDir) return;
+        if (!outputDir) return;
 
         writeFile(outputDir, Buffer.from(map));
     } catch (e) {
@@ -78,7 +78,7 @@ export async function serializeAndSave() {
             ],
         });
 
-        if(!outputDir) return;
+        if (!outputDir) return;
 
         writeFile(outputDir, bbmap);
     } catch (e) {
@@ -101,25 +101,73 @@ export async function readDirData() {
         return await message(`Invalid directory: Map.bbmap not found!`, { title: 'BB Map Tools', kind: 'error' });
     }
 
-    setDirectory(dir);
-    setDirectoryData(dirData);
+    $dir.set(dir);
+    $dirData.set(dirData);
 
     const buf = await readFile(dir+"\\Map.bbmap");
     const date = new Date();
     await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
     const map = deserializeMap(Buffer.from(buf));
 
-    setMap(map);
+    $map.set(map);
 }
 
 export async function openPartEditor() {
-    if (!$dir.get()) return;
+    if (!$dir.get() && !$map.get()) return;
 
-    new WebviewWindow("part-editor", {
+    const window = new WebviewWindow("part-editor", {
         url: "editor.html",
         width: 600,
         height: 800,
         title: "Part Editor",
         decorations: false
     });
+
+    window.once("tauri://webview-created", () => {
+        saveMapToMain($map.get());
+    });
+
+    window.once("tauri://close-requested", async () => {
+        console.log("closed");
+        $map.set(await loadMapFromMain() as MapData);
+        console.log($map.get());
+        window.close();
+    });
+}
+
+export async function openJson() {
+    const file = await open({
+        defaultPath: baseDir,
+        multiple: false,
+        directory: false,
+        filters: [
+            {
+                name: "JSON file",
+                extensions: ["json"]
+            }
+        ]
+    });
+
+    if (!file) return;
+
+    const json: MapData = JSON.parse(new TextDecoder().decode(await readFile(file)));
+    
+    $map.set(json);
+}
+
+export async function saveJson() {
+    $map.set(await loadMapFromMain() as MapData);
+
+    const file = await save({
+        defaultPath: baseDir,
+        filters: [
+            {
+                name: "JSON file",
+                extensions: ["json"]
+            },
+        ],
+    });
+
+    if (!file) return;
+    writeFile(file, Buffer.from(JSON.stringify($map.get())));
 }

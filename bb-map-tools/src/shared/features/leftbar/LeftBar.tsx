@@ -40,7 +40,7 @@ const LeftBar = () => {
             </div>
 
             <div className="flex flex-col gap-3 h-full justify-end mb-5">
-                <Button className="btn-left-menu text-green">Settings</Button>
+                <Button className="btn-left-menu text-green" disabled={true}>Settings</Button>
             </div>
         </div>
     );

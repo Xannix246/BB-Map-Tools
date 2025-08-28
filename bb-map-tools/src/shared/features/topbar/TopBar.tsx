@@ -29,7 +29,7 @@ const TopBar = () => {
                 onClick={async () => {
                     if (win.label === "main") {
                         const confirmation = await confirm(
-                            'All unsaved changes will be lost. Are you sure?',
+                            'All unsaved changes will be lost. Are you sure you want to quit?',
                             { title: 'Close BB Map Tools', kind: 'warning' }
                         );
 

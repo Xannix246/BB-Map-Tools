@@ -1,7 +1,7 @@
 import Button from "@/base/button/Button";
 import List from "@/base/list/List";
 import TopBar from "@/features/topbar/TopBar";
-import { loadJsonToParts, loadTxtToParts } from "./part-utils";
+import { deserializeMapToParts, loadJsonToParts, loadTxtToParts } from "./part-utils";
 import { useEffect, useState } from "react";
 import { loadMapFromMain, setMap } from "@/store";
 import PropContainer from "@/features/prop-container/PropContainer";
@@ -29,7 +29,10 @@ const PartList = () => {
                             className="text-xl"
                             onClick={loadTxtToParts}
                         >Load .txt</Button>
-                        <Button className="text-xl">Deserialize .bbmap</Button>
+                        <Button 
+                            className="text-xl"
+                            onClick={deserializeMapToParts}
+                        >Deserialize .bbmap</Button>
                     </div>
                     <List activeId={activeId} setActiveId={setActiveId}/>
                     {activeId !== undefined && <PropContainer id={activeId}/>}

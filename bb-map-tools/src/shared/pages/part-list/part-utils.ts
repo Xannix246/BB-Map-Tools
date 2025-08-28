@@ -1,7 +1,10 @@
-import { $map, loadMapFromMain, saveMapToMain } from "@/store";
+import { $map, saveMapToMain } from "@/store";
 import { appDataDir } from "@tauri-apps/api/path";
 import { open } from '@tauri-apps/plugin-dialog';
 import { readFile } from "@tauri-apps/plugin-fs";
+import { deserializeMap } from "@utils/deserialize";
+import { Buffer } from "buffer";
+import { v4 } from "uuid";
 
 const baseDir = (await appDataDir()).replace(/Roaming$/, "LocalLow").replace("com.alber.bb-map-tools", "Jan Malitschek\\BetonBrutal\\CustomMaps");
 
@@ -23,7 +26,6 @@ export async function loadJsonToParts() {
         ]
     });
 
-    console.log(path)
     if (!path) return;
     const file = new TextDecoder().decode(await readFile(path));
 
@@ -36,19 +38,17 @@ export async function loadJsonToParts() {
     }
 
     if (Array.isArray(parsed)) {
-        console.log("1")
+        if (parsed.length === 0) return;
         map.parts = [...map.parts, parsed];
     } else if (parsed.blocks) {
-        console.log(map.parts, parsed.blocks)
+        if (parsed.blocks.length === 0) return;
         map.parts = [...map.parts, parsed.blocks];
     } else {
         throw new Error("Unknown JSON format: blocks or array not found");
     }
 
     $map.set({ ...map });
-    console.log(map);
     saveMapToMain({ ...map });
-    // window.location.reload();
 }
 
 export async function loadTxtToParts() {
@@ -101,11 +101,86 @@ export async function loadTxtToParts() {
         }
     }
 
-    map.parts = [blocks];
-    $map.set(map);
-    saveMapToMain(map);
+    if (!map.parts) map.parts = [];
+
+    map.parts = [...map.parts, blocks];
+    $map.set({ ...map });
+    saveMapToMain({ ...map });
 }
 
 export async function deserializeMapToParts() {
-    
+    const map = $map.get();
+
+    if (!map) return;
+
+    const path = await open({
+        defaultPath: baseDir,
+        multiple: false,
+        directory: false,
+        filters: [
+            {
+                name: "BBMap file",
+                extensions: ["bbmap"]
+            }
+        ]
+    });
+
+    if(!path) return;
+
+    const buf = await readFile(path);
+    const deserializedMap = deserializeMap(Buffer.from(buf));
+
+    if (deserializedMap.blocks.length > 0) {
+        if (!map.parts) map.parts = [];
+
+        map.parts = [...map.parts, deserializedMap.blocks];
+        $map.set({ ...map });
+        saveMapToMain({ ...map });
+    }
+}
+
+export async function deletePart(id: number) {
+    const map = $map.get();
+
+    if (!map || !map.parts) return;
+
+    map.parts = map.parts.filter((_, index) => index !== id);
+
+    $map.set({ ...map });
+    saveMapToMain({ ...map });
+}
+
+export async function generateUuid(id: number) {
+    const map = $map.get();
+
+    if (!map || !map.parts) return;
+
+    map.parts[id].forEach((block) => block.instanceID = v4());
+
+
+    $map.set({ ...map });
+    saveMapToMain({ ...map });
+}
+
+export async function changeCords(id: number, newCords: Vector3) {
+    const map = $map.get();
+    if (!map || !map.parts || !map.parts[id]?.length) return;
+
+    const part = map.parts[id];
+    const first = part[0];
+
+    const delta: Vector3 = {
+        x: newCords.x - first.position.x,
+        y: newCords.y - first.position.y,
+        z: newCords.z - first.position.z,
+    };
+
+    part.forEach((block) => {
+        block.position.x += delta.x;
+        block.position.y += delta.y;
+        block.position.z += delta.z;
+    });
+
+    $map.set({ ...map });
+    saveMapToMain({ ...map });
 }

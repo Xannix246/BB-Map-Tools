@@ -1,5 +1,5 @@
 import Button from "@/base/button/Button";
-import { deserializeAndSave, openJson, openPartEditor, readDirData, serializeAndSave } from "./bar-utils";
+import { deserializeAndSave, openJson, openPartEditor, readDirData, saveJson, serializeAndSave } from "./bar-utils";
 
 const LeftBar = () => {
     return (
@@ -20,6 +20,7 @@ const LeftBar = () => {
                 >Load json</Button>
                 <Button 
                     className="btn-left-menu"
+                    onClick={saveJson}
                 >Save json</Button>
             </div>
 
@@ -34,6 +35,7 @@ const LeftBar = () => {
                 >Serialize and save</Button>
                 <Button 
                     className="btn-left-menu"
+                    disabled={true}
                 >Open in text editor</Button>
             </div>
 

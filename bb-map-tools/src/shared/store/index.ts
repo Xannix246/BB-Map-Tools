@@ -17,6 +17,11 @@ export const getDirectoryData = () => useStore($dirData);
 export const setDirectory = (data: string | null) => $dir.set(data);
 export const getDirectory = () => useStore($dir);
 
+export const $cords = atom<Vector3 | null>(null);
+
+export const getCords = () => useStore($cords);
+export const setCords = (cords: Vector3) => $cords.set(cords);
+
 //for secondary windows
 
 export async function loadMapFromMain() {

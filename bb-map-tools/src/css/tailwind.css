@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: 'BebasNeue'; 
+	src: url(/src/assets/fonts/BebasNeue.ttf); 
+}
+
+@theme {
+    --color-blue: #6ea2bf;
+    --color-red: #ad4433;
+    --color-pink: #d78d7c;
+    --color-yellow: #ffbd2f;
+    --color-green: #6a902b;
+
+    --bn-pro: "BebasNeue", sans-serif;
+
+    --text-sm: 14px;
+    --text-md: 15px;
+    --text-lg: 17px;
+    --text-xl: 27px;
+}
+
+@layer components {
+    button {
+        @apply outline-0 cursor-pointer transform transition duration-150 p-2.5 justify-center flex w-fit hover:text-pink;
+    }
+
+    .btn-left-menu {
+        @apply transition-all duration-150 hover:ml-8;
+    }
+}
+
+* {
+    font-family: "BebasNeue", sans-serif;
+}

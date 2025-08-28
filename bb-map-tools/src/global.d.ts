@@ -16,6 +16,7 @@ declare interface MapData {
     version: number;
     verified: boolean;
     name: string;
+    description?: string; //internal data for map tools
     creatorID: bigint;
     bestTime: number;
     usesDLC1Map: boolean;

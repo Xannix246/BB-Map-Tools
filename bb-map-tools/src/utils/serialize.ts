@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 function write7BitEncodedInt(value: number): Buffer {
     const chunks: number[] = [];
     let v = value >>> 0;

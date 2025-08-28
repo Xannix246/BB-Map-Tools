@@ -12,9 +12,14 @@
   "app": {
     "windows": [
       {
-        "title": "bb-map-tools",
-        "width": 800,
-        "height": 600
+        "title": "BETON BRUTAL Map tools",
+        "width": 1200,
+        "height": 700,
+        "resizable": true,
+        "decorations": false,
+        "closable": true,
+        "minimizable": true,
+        "maximizable": true
       }
     ],
     "security": {

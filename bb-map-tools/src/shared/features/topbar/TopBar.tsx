@@ -27,12 +27,16 @@ const TopBar = () => {
             <VscChromeClose
                 className="w-[38px] h-[38px] p-2 m-1 text-gray-300 hover:text-white transition duration-150 hover:bg-black/80"
                 onClick={async () => {
-                    const confirmation = await confirm(
-                        'All unsaved changes will be lost. Are you sure?',
-                        { title: 'Close BB Map Tools', kind: 'warning' }
-                    );
+                    if (win.label === "main") {
+                        const confirmation = await confirm(
+                            'All unsaved changes will be lost. Are you sure?',
+                            { title: 'Close BB Map Tools', kind: 'warning' }
+                        );
 
-                    if (confirmation) win?.close();
+                        if (confirmation) win?.close();
+                    } else {
+                        win?.close();
+                    }
                 }}
             />
         </div>

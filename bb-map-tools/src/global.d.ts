@@ -23,4 +23,5 @@ declare interface MapData {
     blocks: Block[];
     modifiedScenery: { [key: string]: { color: number; customColor?: Color } };
     customColorSwatches: Color[];
+    parts?: Block[][]; //parts
 }

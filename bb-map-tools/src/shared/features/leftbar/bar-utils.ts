@@ -4,76 +4,86 @@ import { deserializeMap } from '@utils/deserialize';
 import { appDataDir } from '@tauri-apps/api/path';
 import { Buffer } from "buffer";
 import { serializeMap } from '@utils/serialize';
-import { setDirectory, setDirectoryData, setMap } from '@/store';
+import { $dir, setDirectory, setDirectoryData, setMap } from '@/store';
+import { message } from '@tauri-apps/plugin-dialog';
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 
 
 const baseDir = (await appDataDir()).replace(/Roaming$/, "LocalLow").replace("com.alber.bb-map-tools", "Jan Malitschek\\BetonBrutal\\CustomMaps");
 
 export async function deserializeAndSave() {
-    const file = await open({
-        defaultPath: baseDir,
-        multiple: false,
-        directory: false,
-        filters: [
-            {
-                name: "BBMap file",
-                extensions: ["bbmap"]
-            }
-        ]
-    });
+    try {
+        const file = await open({
+            defaultPath: baseDir,
+            multiple: false,
+            directory: false,
+            filters: [
+                {
+                    name: "BBMap file",
+                    extensions: ["bbmap"]
+                }
+            ]
+        });
 
-    if(!file) return;
+        if(!file) return;
 
-    const buf = await readFile(file);
-    const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
+        const buf = await readFile(file);
+        const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
 
-    const outputDir = await save({
-        defaultPath: file,
-        filters: [
-            {
-                name: "JSON file",
-                extensions: ["json"]
-            },
-        ],
-    });
+        const outputDir = await save({
+            defaultPath: file,
+            filters: [
+                {
+                    name: "JSON file",
+                    extensions: ["json"]
+                },
+            ],
+        });
 
-    if(!outputDir) return;
+        if(!outputDir) return;
 
-    writeFile(outputDir, Buffer.from(map));
+        writeFile(outputDir, Buffer.from(map));
+    } catch (e) {
+        await message(`Failed to deserialize file. \n\n${e}`, { title: 'BB Map Tools', kind: 'error' });
+    }
 }
 
 export async function serializeAndSave() {
-    const file = await open({
-        defaultPath: baseDir,
-        multiple: false,
-        directory: false,
-        filters: [
-            {
-                name: "JSON file",
-                extensions: ["json"]
-            }
-        ]
-    });
+    try {
+        const file = await open({
+            defaultPath: baseDir,
+            multiple: false,
+            directory: false,
+            filters: [
+                {
+                    name: "JSON file",
+                    extensions: ["json"]
+                }
+            ]
+        });
 
-    if(!file) return;
+        if(!file) return;
 
-    const json: MapData = JSON.parse(new TextDecoder().decode(await readFile(file)));
-    const bbmap = serializeMap(json);
+        const json: MapData = JSON.parse(new TextDecoder().decode(await readFile(file)));
+        const bbmap = serializeMap(json);
 
-    const outputDir = await save({
-        defaultPath: file,
-        filters: [
-            {
-                name: "BBMap file",
-                extensions: ["bbmap"]
-            },
-        ],
-    });
+        const outputDir = await save({
+            defaultPath: file,
+            filters: [
+                {
+                    name: "BBMap file",
+                    extensions: ["bbmap"]
+                },
+            ],
+        });
 
-    if(!outputDir) return;
+        if(!outputDir) return;
 
-    writeFile(outputDir, bbmap);
+        writeFile(outputDir, bbmap);
+    } catch (e) {
+        await message(`Failed to serialize file. \n\n${e}`, { title: 'BB Map Tools', kind: 'error' });
+    }
 }
 
 export async function readDirData() {
@@ -88,14 +98,28 @@ export async function readDirData() {
     const dirData = await readDir(dir);
 
     if(!dirData.find((file) => file.name === "Map.bbmap")) {
-        return console.log("Invalid directory");
+        return await message(`Invalid directory: Map.bbmap not found!`, { title: 'BB Map Tools', kind: 'error' });
     }
 
     setDirectory(dir);
     setDirectoryData(dirData);
 
     const buf = await readFile(dir+"\\Map.bbmap");
+    const date = new Date();
+    await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
     const map = deserializeMap(Buffer.from(buf));
 
     setMap(map);
+}
+
+export async function openPartEditor() {
+    if (!$dir.get()) return;
+
+    new WebviewWindow("part-editor", {
+        url: "editor.html",
+        width: 600,
+        height: 800,
+        title: "Part Editor",
+        decorations: false
+    });
 }

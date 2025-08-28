@@ -1,5 +1,5 @@
 import Button from "@/base/button/Button";
-import { deserializeAndSave, readDirData, serializeAndSave } from "./bar-utils";
+import { deserializeAndSave, openPartEditor, readDirData, serializeAndSave } from "./bar-utils";
 
 const LeftBar = () => {
     return (
@@ -9,7 +9,10 @@ const LeftBar = () => {
                     className="btn-left-menu"
                     onClick={readDirData}
                 >Choose directory</Button>
-                <Button className="btn-left-menu">Edit part list</Button>
+                <Button 
+                    className="btn-left-menu"
+                    onClick={async () => await openPartEditor()}
+                >Edit part list</Button>
                 <Button className="btn-left-menu">Upload or update map</Button>
             </div>
 

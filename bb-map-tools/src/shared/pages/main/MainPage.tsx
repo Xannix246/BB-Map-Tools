@@ -8,6 +8,7 @@ const MainPage = () => {
     const map = getMap();
     const dir = getDirectory();
     const [src, setSrc] = useState<string>();
+    const [totalBlocks, setTotalBlocks] = useState(0);
 
     useEffect(() => {
         (async () => {
@@ -16,6 +17,15 @@ const MainPage = () => {
             if (image) setSrc(image);
         })();
     }, [dir]);
+
+    useEffect(() => {
+        if (map) {
+            let blocks = 0;
+            map.parts?.forEach((part) => blocks += part.length);
+            blocks += map.blocks.length;
+            setTotalBlocks(blocks);
+        }
+    }, [map]);
 
     return (
         <div className="w-full h-full flex flex-col gap-1">
@@ -48,7 +58,7 @@ const MainPage = () => {
                 </Container>
             </div>
             <Container className="w-full">
-                <h1 className="text-xl">Total blocks: {map?.blocks.length}</h1>
+                <h1 className="text-xl">Total blocks: {totalBlocks}</h1>
             </Container>
             <div className="flex gap-1">
                 <Container className="w-fit">

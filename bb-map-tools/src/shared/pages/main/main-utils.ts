@@ -1,4 +1,4 @@
-import { $dir, $map } from "@/store";
+import { $dir, $map, loadMapFromMain } from "@/store";
 import { message } from "@tauri-apps/plugin-dialog";
 import { exists, readFile, writeFile } from "@tauri-apps/plugin-fs";
 import { serializeMap } from "@utils/serialize";
@@ -17,6 +17,8 @@ export async function getImage(): Promise<string | undefined> {
 }
 
 export async function saveAsJson() {
+    $map.set(await loadMapFromMain() as MapData);
+
     const path = $dir.get() + "\\Map.json";
 
     await writeFile(path, Buffer.from(JSON.stringify($map.get(), (_, v) => typeof v === "bigint" ? Number(v) : v)));
@@ -28,12 +30,27 @@ export async function saveAsJson() {
 
 export async function saveChanges() {
     try {
+        $map.set(await loadMapFromMain() as MapData);
+        
         const path = $dir.get() + "\\Map.bbmap";
         const json = $map.get();
+        const preparedJson = Object.create(json);
 
-        if (!json) return;
+        if (!json || !preparedJson) return;
 
-        const map = serializeMap(json);
+        console.log(json.parts);
+
+        if (json.parts) {
+            preparedJson.parts = [];
+
+            for (let part of json.parts) {
+                preparedJson.blocks.push(...part);
+            }
+        }
+
+        console.log(preparedJson);
+
+        const map = serializeMap(preparedJson);
 
         await writeFile(path, Buffer.from(map));
 

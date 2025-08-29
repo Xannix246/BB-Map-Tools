@@ -1,7 +1,12 @@
 import Button from "@/base/button/Button";
 import { deserializeAndSave, openJson, openPartEditor, readDirData, saveJson, serializeAndSave } from "./bar-utils";
 
-const LeftBar = () => {
+type Props = {
+    openSettings: boolean;
+    setOpenSettings: (valie: boolean) => void;
+}
+
+const LeftBar = ({ openSettings, setOpenSettings }: Props) => {
     return (
         <div className="h-screen min-w-[300px] w-[300px] pt-22 pr-2 pb-2 flex flex-col gap-15">
             <div className="flex flex-col gap-3">
@@ -40,7 +45,10 @@ const LeftBar = () => {
             </div>
 
             <div className="flex flex-col gap-3 h-full justify-end mb-5">
-                <Button className="btn-left-menu text-green" disabled={true}>Settings</Button>
+                <Button 
+                    className="btn-left-menu text-green"
+                    onClick={() => setOpenSettings(!openSettings)}
+                >Settings</Button>
             </div>
         </div>
     );

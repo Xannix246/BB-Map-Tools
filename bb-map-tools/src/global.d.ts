@@ -25,3 +25,25 @@ declare interface MapData {
     customColorSwatches: Color[];
     parts?: Block[][]; //parts
 }
+
+declare type Setting = {
+    type: "input" | "select" | "toggle" | "info";
+    label?: string;
+    value?: string | boolean;
+    options?: string[];
+    style?: string;
+    containerStyle?: string;
+    labelStyle?: string;
+    onEvent?: () => void;
+    onChange?: (newValue: any) => void;
+};
+
+declare type SettingsGroup = {
+    name: string;
+    settings: Setting[];
+    style?: string;
+}
+
+declare type UiConfig = {
+    enableBackups?: boolean;
+}

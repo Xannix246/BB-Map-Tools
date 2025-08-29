@@ -11,7 +11,9 @@ const PartList = () => {
     
     useEffect(() => {
         (async () => {
-            setMap(await loadMapFromMain() as MapData);
+            const map = await loadMapFromMain();
+
+            setMap(map as MapData);
         })();
     }, []);
 

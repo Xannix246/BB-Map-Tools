@@ -107,9 +107,9 @@ export async function readDirData() {
     const buf = await readFile(dir+"\\Map.bbmap");
     const date = new Date();
     await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
-    const map = deserializeMap(Buffer.from(buf));
+    const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
 
-    $map.set(map);
+    $map.set(JSON.parse(map));
 }
 
 export async function openPartEditor() {
@@ -124,6 +124,7 @@ export async function openPartEditor() {
     });
 
     window.once("tauri://webview-created", () => {
+        console.log($map.get());
         saveMapToMain($map.get());
     });
 

@@ -7,6 +7,7 @@ import { serializeMap } from '@utils/serialize';
 import { $dir, $dirData, $map, loadMapFromMain, saveMapToMain } from '@/store';
 import { message } from '@tauri-apps/plugin-dialog';
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import Config from '@utils/ConfigManager';
 
 
 
@@ -106,7 +107,9 @@ export async function readDirData() {
 
     const buf = await readFile(dir+"\\Map.bbmap");
     const date = new Date();
-    await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
+    if ((await new Config().getUiConfig()).enableBackups) {
+        await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
+    }
     const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
 
     $map.set(JSON.parse(map));

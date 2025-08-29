@@ -38,8 +38,6 @@ export async function saveChanges() {
 
         if (!json || !preparedJson) return;
 
-        console.log(json.parts);
-
         if (json.parts) {
             preparedJson.parts = [];
 
@@ -47,8 +45,6 @@ export async function saveChanges() {
                 preparedJson.blocks.push(...part);
             }
         }
-
-        console.log(preparedJson);
 
         const map = serializeMap(preparedJson);
 
@@ -60,4 +56,16 @@ export async function saveChanges() {
     } catch (e) {
         await message(`Failed to save file. \n\n${e}`, { title: 'BB Map Tools', kind: 'error' });
     }
+}
+
+export async function changeName(name: string) {
+    
+}
+
+export async function changeDescription(description: string) {
+    
+}
+
+export async function changeImage() {
+    
 }

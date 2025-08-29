@@ -1,6 +1,6 @@
 import Container from "@/base/container/Container";
 import { getDirectory, getMap } from "@/store";
-import { getImage } from "./main-utils";
+import { getImage, saveAsJson, saveChanges } from "./main-utils";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
 
@@ -71,8 +71,14 @@ const MainPage = () => {
             <div className="relative h-full">
                 <div className="absolute right-0 bottom-0">
                     <div className="flex gap-5">
-                        <Button className="bg-black/70 text-xl h-fit">Save as json</Button>
-                        <Button className="bg-black/70 text-xl h-fit">Save changes</Button>
+                        <Button 
+                            className="bg-black/70 text-xl h-fit"
+                            onClick={saveAsJson}
+                        >Save as json</Button>
+                        <Button 
+                            className="bg-black/70 text-xl h-fit"
+                            onClick={saveChanges}
+                        >Save changes</Button>
                     </div>
                 </div>
             </div>

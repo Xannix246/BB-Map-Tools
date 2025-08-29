@@ -2,6 +2,7 @@ import { $dir, $map } from "@/store";
 import { message } from "@tauri-apps/plugin-dialog";
 import { exists, readFile, writeFile } from "@tauri-apps/plugin-fs";
 import { serializeMap } from "@utils/serialize";
+import { Buffer } from "buffer";
 
 export async function getImage(): Promise<string | undefined> {
     const imagePath = $dir.get() + "\\Thumbnail.png";
@@ -18,7 +19,7 @@ export async function getImage(): Promise<string | undefined> {
 export async function saveAsJson() {
     const path = $dir.get() + "\\Map.json";
 
-    await writeFile(path, Buffer.from(JSON.stringify($map.get())));
+    await writeFile(path, Buffer.from(JSON.stringify($map.get(), (_, v) => typeof v === "bigint" ? Number(v) : v)));
 
     await message("Map was saved as json file.", {
         title: "Saved"

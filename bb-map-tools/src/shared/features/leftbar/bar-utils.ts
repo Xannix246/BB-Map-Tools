@@ -153,6 +153,8 @@ export async function openJson() {
     const json: MapData = JSON.parse(new TextDecoder().decode(await readFile(file)));
     
     $map.set(json);
+    $dir.set(null);
+    $dirData.set(null);
 }
 
 export async function saveJson() {

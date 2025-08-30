@@ -2,9 +2,15 @@
   "name": "steam-manager-sidecar",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "build": "pkg server.js --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --output steam-server"
+    "build": "pkg index.ts --targets node18-win-x64 --output bin/steam-manager ; copy .\\bin\\steam-manager.exe ..\\bb-map-tools\\src-tauri\\bin\\"
+  },
+  "pkg": {
+    "assets": [
+      "dist/managers/**/*"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -14,5 +20,12 @@
     "@yao-pkg/pkg": "^6.6.0",
     "express": "^5.1.0",
     "steamworks.js": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "esbuild": "^0.25.9",
+    "ts-pkg-scripts": "^0.2.2",
+    "typescript": "^5.9.2"
   }
 }

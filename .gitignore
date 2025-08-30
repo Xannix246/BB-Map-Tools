@@ -1,1 +1,3 @@
 /steam-manager-sidecar/node_modules
+/steam-manager-sidecar/bin
+/steam-manager-sidecar/dist

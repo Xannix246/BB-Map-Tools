@@ -29,7 +29,9 @@ export class SteamManager {
             }
         );
 
-        return request.items;
+        const resp = JSON.stringify(request.items, (_, v) => typeof v === "bigint" ? Number(v) : v);
+
+        return JSON.parse(resp);
     }
 
     public async upload(params: {

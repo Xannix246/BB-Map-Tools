@@ -7,17 +7,19 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "pkg": "pkg . --targets node18-win-x64 --output bin/steam-manager.exe && copy .\\bin\\steam-manager.exe ..\\bb-map-tools\\src-tauri\\bin\\"
+    "pkg": "pkg . --targets node18-win-x64 --output bin/steam-manager-x86_64-pc-windows-msvc.exe && copy .\\bin\\steam-manager-x86_64-pc-windows-msvc.exe ..\\bb-map-tools\\src-tauri\\binaries\\"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.7.0",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "steamworks.js": "^0.4.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
     "typescript": "^5.9.2"

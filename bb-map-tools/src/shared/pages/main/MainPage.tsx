@@ -21,16 +21,19 @@ const MainPage = () => {
 
     useEffect(() => {
         if (map && dir) {
-            const steam = new SteamManager();
-            //steam.search(map.creatorID!, map.name);
-            steam.upload(
-                {
-                    title: "blabla",
-                    description: "blabla2",
-                    previewPath: dir + "\\Preview.png",
-                    contentPath: dir
-                }
-            );
+            // steam.upload(
+            //     {
+            //         title: "blabla",
+            //         description: "blabla2",
+            //         previewPath: dir + "\\Preview.png",
+            //         contentPath: dir
+            //     }
+            // );
+
+            (async () => {
+                const steam = new SteamManager();
+                console.log(await steam.search(map.name));
+            })();
 
             let blocks = 0;
             map.parts?.forEach((part) => blocks += part.length);

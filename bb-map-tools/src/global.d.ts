@@ -47,3 +47,53 @@ declare type SettingsGroup = {
 declare type UiConfig = {
     enableBackups?: boolean;
 }
+
+// from steamworks.js
+declare const enum UgcItemVisibility {
+    Public = 0,
+    FriendsOnly = 1,
+    Private = 2,
+    Unlisted = 3
+}
+
+declare interface WorkshopItem {
+    publishedFileId: bigint
+    creatorAppId?: number
+    consumerAppId?: number
+    title: string
+    description: string
+    owner: PlayerSteamId
+    /** Time created in unix epoch seconds format */
+    timeCreated: number
+    /** Time updated in unix epoch seconds format */
+    timeUpdated: number
+    /** Time when the user added the published item to their list (not always applicable), provided in Unix epoch format (time since Jan 1st, 1970). */
+    timeAddedToUserList: number
+    visibility: UgcItemVisibility
+    banned: boolean
+    acceptedForUse: boolean
+    tags: Array<string>
+    tagsTruncated: boolean
+    url: string
+    numUpvotes: number
+    numDownvotes: number
+    numChildren: number
+    previewUrl?: string
+    statistics: WorkshopItemStatistic
+}
+
+declare interface WorkshopItemStatistic {
+    numSubscriptions?: bigint
+    numFavorites?: bigint
+    numFollowers?: bigint
+    numUniqueSubscriptions?: bigint
+    numUniqueFavorites?: bigint
+    numUniqueFollowers?: bigint
+    numUniqueWebsiteViews?: bigint
+    reportScore?: bigint
+    numSecondsPlayed?: bigint
+    numPlaytimeSessions?: bigint
+    numComments?: bigint
+    numSecondsPlayedDuringTimePeriod?: bigint
+    numPlaytimeSessionsDuringTimePeriod?: bigint
+}

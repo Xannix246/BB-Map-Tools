@@ -1,13 +1,16 @@
 import { SteamManager } from "./managers/SteamManager";
 import express from "express";
+import cors from "cors";
+
 
 const port = process.env.PORT || process.argv[2] || 2173;
 const steam = new SteamManager();
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: true }));
 
-app.get("/get-map/:name", async (req, res) => {
-    const name = req.params.name;
+app.get("/get-map", async (req, res) => {
+    const name = req.query.name?.toString();
 
     if (!name) return res.status(400).send("Bad request");;
 
@@ -22,7 +25,7 @@ app.post("/create", async (req, res) => {
     const contentPath: string = req.body.contentPath;
     const changeNote: string | undefined = req.body.changeNote;
 
-    if (!title || !previewPath || !contentPath) return res.status(400).send("Bad request");;
+    if (title == "" || previewPath == "" || contentPath == "") return res.status(400).send("Bad request");;
 
     const result = await steam.upload({
         title,
@@ -42,7 +45,7 @@ app.post("/update", async (req, res) => {
     const changeNote: string | undefined = req.body.changeNote;
     const itemId: bigint = BigInt(req.body.itemId);
 
-    if (!title || !previewPath || !contentPath || !itemId) return res.status(400).send("Bad request");;
+    if (title == "" || previewPath == "" || contentPath == "" || !itemId) return res.status(400).send("Bad request");
 
     const result = await steam.upload({
         title,

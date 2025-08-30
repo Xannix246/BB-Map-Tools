@@ -8,7 +8,7 @@ export class SteamManager {
         this.init(2330500);
     }
 
-    private async init(appId: number) {
+    private init(appId: number) {
         this.client = steamworks.init(appId);
     }
 
@@ -45,7 +45,7 @@ export class SteamManager {
             ...params
         }, 2330500);
 
-        return request.itemId;
+        return request.itemId.toString();
     }
 
     // public async update(params: {

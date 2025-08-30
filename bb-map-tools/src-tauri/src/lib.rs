@@ -38,7 +38,7 @@ fn find_map(author_id: u32, name: String) -> Result<Option<(u64, String)>, Strin
 
     match query {
         Ok(handle) => {
-            handle.fetch(|create_result| {
+            handle.fetch(|create_result: Result<steamworks::QueryResults<'_>, steamworks::SteamError>| {
                 match create_result {
                     Ok(res) => {
                         
@@ -70,7 +70,7 @@ fn upload_map(
     ugc.create_item(
         steamworks::AppId(2330500),
         steamworks::FileType::Community,
-        |create_result| {
+        |create_result: Result<(PublishedFileId, bool), steamworks::SteamError>| {
             match create_result {
                 Ok((pub_id, tos)) => {
                     //published_id = pub_id;
@@ -89,7 +89,7 @@ fn upload_map(
         .description(&description)
         .submit(
             Some("Initial release"), 
-            |upload_result| {
+            |upload_result: Result<(PublishedFileId, bool), steamworks::SteamError>| {
                 match upload_result {
                     Ok((pub_id, tos)) => {
 
@@ -120,7 +120,7 @@ fn update_map(
         .description(&description)
         .submit(
             Some("Update notes"), 
-            |upload_result| {
+            |upload_result: Result<(PublishedFileId, bool), steamworks::SteamError>| {
                 match upload_result {
                     Ok((pub_id, tos)) => {
 

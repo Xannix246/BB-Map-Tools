@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 
 export class SteamManager {
     constructor() {
-        this.init(2330500);
+        // this.init(2330500);
     }
 
     // init
@@ -11,28 +11,28 @@ export class SteamManager {
     }
 
     // search map
-    public async search(authorId: string, namePart: string): Promise<{
-        publishedFileId: string | null,
-        title?: string
-    }> {
-        return await invoke("steam_search", { authorId, namePart });
+    public async search(authorId: bigint, partName: string)
+    // : Promise<{
+    //     publishedFileId: string | null,
+    //     title?: string
+    // }> 
+    {
+        return await invoke("find_map", { authorId, name: partName });
     }
 
     // upload map
-    public async steamUpload(params: {
-        appId: number;
+    public async upload(params: {
         title: string;
         description?: string;
-        sourceDir: string;            // корень с исходными файлами
-        allowedFiles: string[];       // какие конкретно файлы брать
-        previewFile?: string | null;  // путь к превью картинке (можно null)
-        tags?: string[];
+        previewPath?: string | null;
+        contentPath: string;
     }) {
-        return await invoke("steam_upload", params);
+        //return await invoke("upload_map", params);
+        return await invoke("upload_map", params);
     }
 
     // update map
-    public async steamUpdate(params: {
+    public async update(params: {
         appId: number;
         publishedFileId: string;      // уже известный workshop ID
         title?: string | null;
@@ -42,21 +42,21 @@ export class SteamManager {
         previewFile?: string | null;
         tags?: string[];
     }) {
-        return await invoke("steam_update", params);
+        return await invoke("update_map", params);
     }
 
     // update existing or upload new map
-    public async steamUpsert(params: {
-        appId: number;
-        authorId: string;
-        namePart: string;
-        title: string;
-        description?: string;
-        sourceDir: string;
-        allowedFiles: string[];
-        previewFile?: string | null;
-        tags?: string[];
-    }) {
-        return await invoke("steam_upsert", params);
-    }
+    // public async upsert(params: {
+    //     appId: number;
+    //     authorId: string;
+    //     namePart: string;
+    //     title: string;
+    //     description?: string;
+    //     sourceDir: string;
+    //     allowedFiles: string[];
+    //     previewFile?: string | null;
+    //     tags?: string[];
+    // }) {
+    //     return await invoke("steam_upsert", params);
+    // }
 }

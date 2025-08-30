@@ -18,6 +18,13 @@
     "core:window:allow-unmaximize",
     "fs:write-all",
     "core:webview:allow-create-webview-window",
-    "store:default"
+    "store:default",
+    {
+      "identifier": "fs:default",
+      "allow": [
+        "*/**"
+      ]
+    },
+    "shell:default"
   ]
 }

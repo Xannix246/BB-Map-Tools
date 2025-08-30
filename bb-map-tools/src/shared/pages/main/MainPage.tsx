@@ -1,8 +1,9 @@
 import Container from "@/base/container/Container";
-import { getDirectory, getMap } from "@/store";
+import { $dir, getDirectory, getMap } from "@/store";
 import { getImage, saveAsJson, saveChanges } from "./main-utils";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
+import { SteamManager } from "@utils/SteamManager";
 
 const MainPage = () => {
     const map = getMap();
@@ -19,7 +20,18 @@ const MainPage = () => {
     }, [dir]);
 
     useEffect(() => {
-        if (map) {
+        if (map && dir) {
+            const steam = new SteamManager();
+            //steam.search(map.creatorID!, map.name);
+            steam.upload(
+                {
+                    title: "blabla",
+                    description: "blabla2",
+                    previewPath: dir + "\\Preview.png",
+                    contentPath: dir
+                }
+            );
+
             let blocks = 0;
             map.parts?.forEach((part) => blocks += part.length);
             blocks += map.blocks.length;

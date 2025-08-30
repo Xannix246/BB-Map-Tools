@@ -25,6 +25,16 @@
         "*/**"
       ]
     },
-    "shell:default"
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "binaries/steam-manager",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:default",
+    "shell:allow-spawn"
   ]
 }

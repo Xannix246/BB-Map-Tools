@@ -1,3 +1,7 @@
 /steam-manager-sidecar/node_modules
 /steam-manager-sidecar/bin
 /steam-manager-sidecar/dist
+/steam-manager-sidecar_old/node_modules
+/SteamManagerServer/bin
+/SteamManagerServer/obj
+/SteamManagerServer/bin

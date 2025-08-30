@@ -13,30 +13,56 @@ export class SteamManager {
             sort: true
         });
         const search = searcher.search(partName).sort((a, b) => b.numUpvotes - a.numUpvotes);
-        return search[0];
+        const mapped = search.map((item: any) => ({
+            id: BigInt(item.id),
+            title: item.title,
+            description: item.description,
+            owner: BigInt(item.owner),
+            tags: item.tags,
+            numUpvotes: item.numUpvotes,
+            numDownvotes: item.numDownvotes
+        }));
+
+        return mapped[0];
     }
 
     // upload map
-    // public async upload(params: {
-    //     title: string;
-    //     description?: string;
-    //     previewPath?: string | null;
-    //     contentPath: string;
-    // }) {
-        
-    // }
+    public async upload(params: {
+        title: string;
+        description?: string;
+        previewPath?: string | null;
+        contentPath: string;
+        changeNote?: string,
+    }): Promise<bigint> {
+        const responce: { itemId: bigint } = await axios.post(`http://localhost:2173/create`, {
+            Title: params.title,
+            ContentPath: params.contentPath,
+            PreviewPath: params.previewPath,
+            Description: params.description || "",
+            ChangeNote: params.changeNote || ""
+        });
+
+        return responce.itemId;
+    }
 
     // update map
-    // public async update(params: {
-    //     appId: number;
-    //     publishedFileId: string;
-    //     title?: string | null;
-    //     description?: string | null;
-    //     sourceDir: string;
-    //     allowedFiles: string[];
-    //     previewFile?: string | null;
-    //     tags?: string[];
-    // }) {
-        
-    // }
+    public async update(params: {
+        title: string,
+        contentPath: string,
+        previewPath: string,
+        description?: string,
+        changeNote?: string,
+        itemId: bigint
+    }): Promise<bigint> {
+        const responce: { itemId: bigint } = await axios.post(`http://localhost:2173/update`, {
+            Title: params.title,
+            ContentPath: params.contentPath,
+            PreviewPath: params.previewPath,
+            Description: params.description || "",
+            ChangeNote: params.changeNote || "",
+            ItemId: params.itemId
+        });
+
+        return responce.itemId;
+    }
 }

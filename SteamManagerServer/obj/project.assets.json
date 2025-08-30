@@ -1,0 +1,152 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "aelsi2.Facepunch.Steamworks/2.3.4": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.1/Facepunch.Steamworks.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libsteam_api.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x86/native/libsteam_api.so": {
+            "assetType": "native",
+            "rid": "linux-x86"
+          },
+          "runtimes/osx-x64/native/libsteam_api.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/unix/lib/netstandard2.1/Facepunch.Steamworks.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win-x64/native/steam_api.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/steam_api.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win/lib/netstandard2.1/Facepunch.Steamworks.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "aelsi2.Facepunch.Steamworks/2.3.4": {
+      "sha512": "0bjyBeLywxE/FMWRG2jpF64piKSNL7ygyYwRBG8bY/Xb0Vkv3ImqpEsbABDQ30bTZAKeUBNqJ78RhcxhZ4u5cw==",
+      "type": "package",
+      "path": "aelsi2.facepunch.steamworks/2.3.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aelsi2.facepunch.steamworks.2.3.4.nupkg.sha512",
+        "aelsi2.facepunch.steamworks.nuspec",
+        "icon.jpg",
+        "readme.md",
+        "ref/netstandard2.1/Facepunch.Steamworks.dll",
+        "ref/netstandard2.1/Facepunch.Steamworks.xml",
+        "runtimes/linux-x64/native/libsteam_api.so",
+        "runtimes/linux-x86/native/libsteam_api.so",
+        "runtimes/osx-x64/native/libsteam_api.dylib",
+        "runtimes/unix/lib/netstandard2.1/Facepunch.Steamworks.dll",
+        "runtimes/win-x64/native/steam_api.dll",
+        "runtimes/win-x86/native/steam_api.dll",
+        "runtimes/win/lib/netstandard2.1/Facepunch.Steamworks.dll"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "aelsi2.Facepunch.Steamworks >= 2.3.4"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\alber\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManagerServer.csproj",
+      "projectName": "SteamManagerServer",
+      "projectPath": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManagerServer.csproj",
+      "packagesPath": "C:\\Users\\alber\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\alber\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "dependencies": {
+          "aelsi2.Facepunch.Steamworks": {
+            "target": "Package",
+            "version": "[2.3.4, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

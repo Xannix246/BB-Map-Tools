@@ -1,5 +1,5 @@
 import Container from "@/base/container/Container";
-import { $dir, getDirectory, getMap } from "@/store";
+import { getDirectory, getMap } from "@/store";
 import { getImage, saveAsJson, saveChanges } from "./main-utils";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";

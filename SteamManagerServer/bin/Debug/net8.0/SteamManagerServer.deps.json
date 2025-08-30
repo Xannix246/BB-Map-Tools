@@ -1,0 +1,74 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SteamManagerServer/1.0.0": {
+        "dependencies": {
+          "aelsi2.Facepunch.Steamworks": "2.3.4"
+        },
+        "runtime": {
+          "SteamManagerServer.dll": {}
+        }
+      },
+      "aelsi2.Facepunch.Steamworks/2.3.4": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard2.1/Facepunch.Steamworks.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "2.3.4.0",
+            "fileVersion": "2.3.4.0"
+          },
+          "runtimes/win/lib/netstandard2.1/Facepunch.Steamworks.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "2.3.4.0",
+            "fileVersion": "2.3.4.0"
+          },
+          "runtimes/linux-x64/native/libsteam_api.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x86/native/libsteam_api.so": {
+            "rid": "linux-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libsteam_api.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/steam_api.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "8.2.21.95"
+          },
+          "runtimes/win-x86/native/steam_api.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "8.2.21.95"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SteamManagerServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "aelsi2.Facepunch.Steamworks/2.3.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0bjyBeLywxE/FMWRG2jpF64piKSNL7ygyYwRBG8bY/Xb0Vkv3ImqpEsbABDQ30bTZAKeUBNqJ78RhcxhZ4u5cw==",
+      "path": "aelsi2.facepunch.steamworks/2.3.4",
+      "hashPath": "aelsi2.facepunch.steamworks.2.3.4.nupkg.sha512"
+    }
+  }
+}

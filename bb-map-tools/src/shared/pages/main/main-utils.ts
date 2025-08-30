@@ -58,14 +58,14 @@ export async function saveChanges() {
     }
 }
 
-export async function changeName(name: string) {
+// export async function changeName(name: string) {
     
-}
+// }
 
-export async function changeDescription(description: string) {
+// export async function changeDescription(description: string) {
     
-}
+// }
 
-export async function changeImage() {
+// export async function changeImage() {
     
-}
+// }

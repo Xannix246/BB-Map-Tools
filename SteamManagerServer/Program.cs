@@ -1,10 +1,21 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SteamManagerServer.SteamManager;
 
 var builder = WebApplication.CreateBuilder(args);
+var port = args.Length > 0 ? int.Parse(args[0]) : 2174;
 builder.Services.AddCors();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(port, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+        listenOptions.UseConnectionLogging();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -109,5 +120,12 @@ app.MapPost("/update", async (HttpRequest req) =>
     }
 });
 
-var port = args.Length > 0 ? int.Parse(args[0]) : 2174;
-app.Run($"http://localhost:{port}");
+var runTask = app.RunAsync($"http://localhost:{port}");
+
+AppDomain.CurrentDomain.ProcessExit += async (_, __) =>
+{
+    Console.WriteLine("Stopping server...");
+    await app.StopAsync();
+};
+
+await runTask;

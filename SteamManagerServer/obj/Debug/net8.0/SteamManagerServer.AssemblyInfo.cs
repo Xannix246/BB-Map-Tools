@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SteamManagerServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fd565ee8a4976ce7682374408e018f2e6e4ebe6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cddc48e541e75d408237ceea8621d3ee9c73979b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SteamManagerServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SteamManagerServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

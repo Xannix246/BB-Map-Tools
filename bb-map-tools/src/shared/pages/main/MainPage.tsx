@@ -35,15 +35,15 @@ const MainPage = () => {
                 const steam = new SteamManager();
                 console.log(await steam.search(map.name));
 
-                const res = await steam.update({
-                    title: map.name,
-                    description: "some description2",
-                    previewPath: await path.join(dir + "\\Thumbnail.png"),
-                    contentPath: await path.join(dir),
-                    changeNote: "blob",
-                    itemId: 3559190313
-                });
-                console.log(res);
+                // const res = await steam.update({
+                //     title: map.name,
+                //     description: "some description2",
+                //     previewPath: await path.join(dir + "\\Thumbnail.png"),
+                //     contentPath: await path.join(dir),
+                //     changeNote: "blob",
+                //     itemId: 3559190313
+                // });
+                // console.log(res);
             })();
 
             let blocks = 0;

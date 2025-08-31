@@ -14,9 +14,9 @@
       {
         "title": "BETON BRUTAL Map tools",
         "width": 1200,
-        "height": 720,
+        "height": 732,
         "minWidth": 1024,
-        "minHeight": 720,
+        "minHeight": 732,
         "resizable": true,
         "decorations": false,
         "closable": true,

@@ -17,16 +17,16 @@ const Modal = ({ children, className, open, onClose }: Props) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-black/30 backdrop-blur-[2px]"
+                    className="fixed inset-0 backdrop-blur-[2px]"
                 />
                 <motion.div 
                     className="fixed inset-0 flex w-screen items-center justify-center p-4"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={{ ease: "backInOut", duration: 0.4 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ ease: "backInOut", duration: 0.2 }}
                 >
-                    <DialogPanel className={clsx("max-w-full bg-white m-4 rounded-md", className)}>
+                    <DialogPanel className={clsx(className, "max-w-full bg-black/70 m-4 text-white")}>
                         {children}
                     </DialogPanel>
                 </motion.div>

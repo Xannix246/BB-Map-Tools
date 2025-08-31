@@ -54,7 +54,7 @@ const Settings = ({ open, setOpen }: Props) => {
 
     return (
         <div className={className}>
-            <div ref={settingsRef} className="relative w-full h-full text-2xl bg-black/70 bg-[url(/src/assets/bg_settings.jpg)] bg-center bg-no-repeat bg-cover flex">
+            <div ref={settingsRef} className="relative w-full h-full text-2xl bg-black/70 bg-center bg-no-repeat bg-cover flex">
                 <div className="w-[250px] h-full bg-white/10 pt-5 text-white">
                     {settingsTable}
                 </div>

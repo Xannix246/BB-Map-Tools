@@ -1,49 +1,36 @@
 import Container from "@/base/container/Container";
-import { getDirectory, getMap } from "@/store";
+import { getDirectory, getId, getMap, setId } from "@/store";
 import { getImage, saveAsJson, saveChanges } from "./main-utils";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
 import { SteamManager } from "@utils/SteamManager";
-import { path } from "@tauri-apps/api";
+import { openUrl } from "@tauri-apps/plugin-opener";
+import UploadModal from "@/features/upload-modal/UploadModal";
 
 const MainPage = () => {
     const map = getMap();
     const dir = getDirectory();
     const [src, setSrc] = useState<string>();
+    const id = getId();
     const [totalBlocks, setTotalBlocks] = useState(0);
+    const [open, setOpen] = useState(false);
+    const steam = new SteamManager();
 
     useEffect(() => {
         (async () => {
             const image = await getImage();
-
             if (image) setSrc(image);
         })();
     }, [dir]);
 
     useEffect(() => {
         if (map && dir) {
-            // steam.upload(
-            //     {
-            //         title: "blabla",
-            //         description: "blabla2",
-            //         previewPath: dir + "\\Preview.png",
-            //         contentPath: dir
-            //     }
-            // );
-
             (async () => {
-                const steam = new SteamManager();
-                console.log(await steam.search(map.name));
-
-                // const res = await steam.update({
-                //     title: map.name,
-                //     description: "some description2",
-                //     previewPath: await path.join(dir + "\\Thumbnail.png"),
-                //     contentPath: await path.join(dir),
-                //     changeNote: "blob",
-                //     itemId: 3559190313
-                // });
-                // console.log(res);
+                const searchMap = await steam.search(map.name);
+                console.log(searchMap);
+                if (searchMap) {
+                    setId(searchMap.id.toString());
+                } else setId(null);
             })();
 
             let blocks = 0;
@@ -61,7 +48,7 @@ const MainPage = () => {
 
             <div className="flex gap-1">
                 <Container className="w-full">
-                    <h1 className="text-2xl text-gray-400">{map?.description || "No desctription"}</h1>
+                    <h1 className="text-2xl text-gray-400">{map?.description || "No description"}</h1>
                 </Container>
                 <Container className="h-64 min-w-64">
                     <div className="flex h-full place-content-center">
@@ -94,9 +81,25 @@ const MainPage = () => {
                     <h1 className="flex text-xl gap-2">Editor version: {map?.version}</h1>
                 </Container>
             </div>
+            {id && id.length > 0 && <div className="flex">
+                <Container className="w-full bg-green/50">
+                    <div className="text-xl justify-center flex gap-2">
+                        <h1>Map was found in</h1>
+                        <a 
+                            className="text-blue hover:underline" 
+                            onClick={async () => await openUrl(`https://steamcommunity.com/sharedfiles/filedetails/?id=${id}`)}
+                        >Steam Workshop,</a>
+                        <h1>so you can update it.</h1>
+                    </div>
+                </Container> 
+            </div>}
             <div className="relative h-full">
                 <div className="absolute right-0 bottom-0">
-                    <div className="flex gap-5">
+                    <div className="flex gap-1">
+                        <Button 
+                            className="bg-black/70 text-red hover:text-pink text-xl h-fit"
+                            onClick={() => setOpen(true)}
+                        >{id && id.length > 0 ? "Update" : "Upload"} map</Button>
                         <Button 
                             className="bg-black/70 text-xl h-fit"
                             onClick={saveAsJson}
@@ -107,6 +110,9 @@ const MainPage = () => {
                         >Save changes</Button>
                     </div>
                 </div>
+            </div>
+            <div className="absolute">
+                <UploadModal open={open} setOpen={setOpen}/>
             </div>
         </div>
     );

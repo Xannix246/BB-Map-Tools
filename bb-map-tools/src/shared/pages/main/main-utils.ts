@@ -17,7 +17,8 @@ export async function getImage(): Promise<string | undefined> {
 }
 
 export async function saveAsJson() {
-    $map.set(await loadMapFromMain() as MapData);
+    const mapData = await loadMapFromMain() as MapData;
+    if (!mapData) $map.set(mapData);
 
     const path = $dir.get() + "\\Map.json";
 
@@ -30,7 +31,8 @@ export async function saveAsJson() {
 
 export async function saveChanges() {
     try {
-        $map.set(await loadMapFromMain() as MapData);
+            const mapData = await loadMapFromMain() as MapData;
+        if (mapData) $map.set(mapData);
         
         const path = $dir.get() + "\\Map.bbmap";
         const json = $map.get();

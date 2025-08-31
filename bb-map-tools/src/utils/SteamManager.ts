@@ -6,7 +6,7 @@ export class SteamManager {
 
     // search map
     public async search(partName: string): Promise<WorkshopItem> {
-        const responce: WorkshopItem[] = (await axios.get(`http://localhost:2173/get-map?name=${partName}`)).data;
+        const responce: WorkshopItem[] = (await axios.get(`http://localhost:2174/get-map?name=${partName}`)).data;
 
         const searcher = new FuzzySearch(responce, ['title'], {
             caseSensitive: false,
@@ -34,7 +34,7 @@ export class SteamManager {
         contentPath: string;
         changeNote?: string,
     }): Promise<bigint> {
-        const responce: { itemId: bigint } = await axios.post(`http://localhost:2173/create`, {
+        const responce = await axios.post(`http://localhost:2174/create`, {
             Title: params.title,
             ContentPath: params.contentPath,
             PreviewPath: params.previewPath,
@@ -42,7 +42,7 @@ export class SteamManager {
             ChangeNote: params.changeNote || ""
         });
 
-        return responce.itemId;
+        return responce.data.itemId;
     }
 
     // update map
@@ -52,9 +52,9 @@ export class SteamManager {
         previewPath: string,
         description?: string,
         changeNote?: string,
-        itemId: bigint
+        itemId: number
     }): Promise<bigint> {
-        const responce: { itemId: bigint } = await axios.post(`http://localhost:2173/update`, {
+        const responce = await axios.post(`http://localhost:2174/update`, {
             Title: params.title,
             ContentPath: params.contentPath,
             PreviewPath: params.previewPath,
@@ -63,6 +63,6 @@ export class SteamManager {
             ItemId: params.itemId
         });
 
-        return responce.itemId;
+        return responce.data.itemId;
     }
 }

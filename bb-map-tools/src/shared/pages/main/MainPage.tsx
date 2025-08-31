@@ -4,6 +4,7 @@ import { getImage, saveAsJson, saveChanges } from "./main-utils";
 import { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
 import { SteamManager } from "@utils/SteamManager";
+import { path } from "@tauri-apps/api";
 
 const MainPage = () => {
     const map = getMap();
@@ -33,6 +34,16 @@ const MainPage = () => {
             (async () => {
                 const steam = new SteamManager();
                 console.log(await steam.search(map.name));
+
+                const res = await steam.update({
+                    title: map.name,
+                    description: "some description2",
+                    previewPath: await path.join(dir + "\\Thumbnail.png"),
+                    contentPath: await path.join(dir),
+                    changeNote: "blob",
+                    itemId: 3559190313
+                });
+                console.log(res);
             })();
 
             let blocks = 0;

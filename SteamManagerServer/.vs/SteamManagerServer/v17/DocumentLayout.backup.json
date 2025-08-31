@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|c:\\users\\alber\\documents\\github\\bb-map-tools\\steammanagerserver\\steammanager\\steammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|solutionrelative:steammanager\\steammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|c:\\users\\alber\\documents\\github\\bb-map-tools\\steammanagerserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|c:\\users\\alber\\documents\\github\\bb-map-tools\\steammanagerserver\\steammanager\\reqtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|solutionrelative:steammanager\\reqtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|c:\\users\\alber\\documents\\github\\bb-map-tools\\steammanagerserver\\steammanager\\steammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E1B0A1C-CF89-4948-9025-69886CDCFF97}|SteamManagerServer.csproj|solutionrelative:steammanager\\steammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ReqType.cs",
               "DocumentMoniker": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManager\\ReqType.cs",
               "RelativeDocumentMoniker": "SteamManager\\ReqType.cs",
@@ -39,26 +39,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAD8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T21:45:16.327Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SteamManager.cs",
               "DocumentMoniker": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManager\\SteamManager.cs",
               "RelativeDocumentMoniker": "SteamManager\\SteamManager.cs",
               "ToolTip": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManager\\SteamManager.cs",
               "RelativeToolTip": "SteamManager\\SteamManager.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAswCQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAiwEoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T21:27:32.396Z",
               "EditorCaption": ""

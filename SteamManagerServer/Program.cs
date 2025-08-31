@@ -61,7 +61,7 @@ app.MapPost("/create", async (HttpRequest req) =>
             return Results.BadRequest("Title, ContentPath and PreviewPath are required");
         }
 
-        var fileId = await steam.Upload(
+        var fileId = await SteamManager.Upload(
             data.Title,
             data.ContentPath,
             data.PreviewPath,
@@ -73,6 +73,7 @@ app.MapPost("/create", async (HttpRequest req) =>
     }
     catch (Exception ex)
     {
+        Console.WriteLine("Мда");
         return Results.Problem(ex.Message);
     }
 });
@@ -91,7 +92,7 @@ app.MapPost("/update", async (HttpRequest req) =>
             return Results.BadRequest("ItemId, Title, ContentPath and PreviewPath are required");
         }
 
-        var fileId = await steam.Upload(
+        var fileId = await SteamManager.Upload(
             data.Title,
             data.ContentPath,
             data.PreviewPath,
@@ -108,5 +109,5 @@ app.MapPost("/update", async (HttpRequest req) =>
     }
 });
 
-var port = args.Length > 0 ? int.Parse(args[0]) : 2173;
+var port = args.Length > 0 ? int.Parse(args[0]) : 2174;
 app.Run($"http://localhost:{port}");

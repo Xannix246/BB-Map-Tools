@@ -8,6 +8,7 @@ public class SteamManager : IDisposable
 {
     private readonly uint appId = 2330500;
 
+
     public SteamManager()
     {
         Init(appId);
@@ -38,7 +39,7 @@ public class SteamManager : IDisposable
         return total;
     }
 
-    public async Task<ulong> Upload(
+    public static async Task<ulong> Upload(
         string title, 
         string contentPath, 
         string previewPath, 
@@ -47,27 +48,34 @@ public class SteamManager : IDisposable
         ulong? itemId = null
     )
     {
-        Editor workshopItem;
+        var progress = new Progress<float>(p =>
+        {
+            Console.WriteLine($"Upload progress: {p * 100:F0}%");
+        });
 
         if (itemId.HasValue)
         {
-            workshopItem = new Editor((PublishedFileId)itemId)
-                .WithChangeLog(changeNote);
+            var workshopItem = await new Editor((PublishedFileId)itemId)
+                .WithTitle(title)
+                .WithChangeLog(changeNote)
+                .WithContent(contentPath)
+                .WithPreviewFile(previewPath)
+                .SubmitAsync(progress);
+
+            return workshopItem.FileId;
         }
         else
         {
-            workshopItem = Editor.NewCommunityFile
-                .WithDescription(description);
+            var workshopItem = await Editor.NewCommunityFile
+                .WithTitle(title)
+                .WithDescription(description)
+                .WithContent(contentPath)
+                .WithPreviewFile(previewPath)
+                .WithTag("CustomMaps")
+                .SubmitAsync(progress);
+
+            return workshopItem.FileId;
         }
-
-        workshopItem
-            .WithTitle(title)
-            .WithContent(contentPath)
-            .WithPreviewFile(previewPath);
-
-        var result = await workshopItem.SubmitAsync();
-
-        return result.FileId;
     }
 
     public void Dispose()

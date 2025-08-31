@@ -17,9 +17,9 @@ export async function initConfig() {
         console.log("steam_appid.txt found");
     }
 
-    const port = 2173;
-    const sidecar = Command.sidecar("binaries/steam-manager", [String(port)]);
-    await sidecar.spawn();
+    const port = 2174;
+    // const sidecar = Command.sidecar("binaries/steam-manager", [String(port)]);
+    // await sidecar.spawn();
 }
 
 export function isMapData(map: MapData | string): map is MapData {

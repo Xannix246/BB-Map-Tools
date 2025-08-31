@@ -50,28 +50,28 @@ export const getSettingsConfig = async (): Promise<SettingsGroup[]> => {
             ],
             style: "p-2"
         },
-        {
-            name: "Test",
-            settings: [
-                { type: "info", value: `Some ui for settings`, style: "text-center" },
-                {
-                    type: "toggle",
-                    label: "Toggle",
-                    labelStyle: "flex-1",
-                    style: "flex-2",
-                    containerStyle: "flex",
-                },
-                {
-                    type: "select",
-                    label: "Selector",
-                    labelStyle: "flex-1",
-                    containerStyle: "flex",
-                    options: ["option 1", "option 2", "option 3"],
-                    style: "flex-2 w-full h-[42px] bg-white/10 outline-none",
-                    value: "option 1",
-                },
-            ],
-            style: "p-2 mt-32 text-red"
-        }
+        // {
+        //     name: "Test",
+        //     settings: [
+        //         { type: "info", value: `Some ui for settings`, style: "text-center" },
+        //         {
+        //             type: "toggle",
+        //             label: "Toggle",
+        //             labelStyle: "flex-1",
+        //             style: "flex-2",
+        //             containerStyle: "flex",
+        //         },
+        //         {
+        //             type: "select",
+        //             label: "Selector",
+        //             labelStyle: "flex-1",
+        //             containerStyle: "flex",
+        //             options: ["option 1", "option 2", "option 3"],
+        //             style: "flex-2 w-full h-[42px] bg-white/10 outline-none",
+        //             value: "option 1",
+        //         },
+        //     ],
+        //     style: "p-2 mt-32 text-red"
+        // }
     ];
 };

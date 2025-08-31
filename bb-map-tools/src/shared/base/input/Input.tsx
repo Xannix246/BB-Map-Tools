@@ -23,7 +23,8 @@ const Input = ({
                 placeholder={placeholder} 
                 value={value} 
                 onChange={(event) => setValue && setValue(event.target.value)} 
-                {...props} 
+                {...props}
+                tabIndex={0}
                 className="w-full outline-0 p-2 bg-black/50"
             />
         </div>

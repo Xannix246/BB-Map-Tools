@@ -38,10 +38,10 @@ const LeftBar = ({ openSettings, setOpenSettings }: Props) => {
                     className="btn-left-menu"
                     onClick={serializeAndSave}
                 >Serialize and save</Button>
-                <Button 
+                {/* <Button 
                     className="btn-left-menu"
                     disabled={true}
-                >Open in text editor</Button>
+                >Open in text editor</Button> */}
             </div>
 
             <div className="flex flex-col gap-3 h-full justify-end mb-5">

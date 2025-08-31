@@ -98,7 +98,7 @@ export async function readDirData() {
 
     const dirData = await readDir(dir);
 
-    if(!dirData.find((file) => file.name === "Map.bbmap")) {
+    if(!dirData.find(file => file.name === "Map.bbmap")) {
         return await message(`Invalid directory: Map.bbmap not found!`, { title: 'BB Map Tools', kind: 'error' });
     }
 
@@ -110,9 +110,14 @@ export async function readDirData() {
     if ((await new Config().getUiConfig()).enableBackups) {
         await writeFile(dir+`\\Backup-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}.bbmap`, buf);
     }
-    const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
 
-    $map.set(JSON.parse(map));
+    if (dirData.find(file => file.name === "Map.json")) {
+        const map = new TextDecoder().decode(await readFile(dir+"\\Map.json"));
+        $map.set(JSON.parse(map));
+    } else {
+        const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
+        $map.set(JSON.parse(map));
+    }
 }
 
 export async function openPartEditor() {

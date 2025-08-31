@@ -29,6 +29,7 @@ const MainPage = () => {
     };
 
     useEffect(() => {
+        setMapLoaded(false);
         (async () => {
             const image = await getImage();
             if (image) setSrc(image);

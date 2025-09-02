@@ -65,4 +65,13 @@ export class SteamManager {
 
         return responce.data.itemId;
     }
+
+    public async getUsername(id: bigint): Promise<string> {
+        console.log(id);
+        const responce = await axios.get(`http://localhost:2174/get-username?id=${id}`);
+
+        console.log(responce);
+
+        return responce.data.username;
+    }
 }

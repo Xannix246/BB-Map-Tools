@@ -114,9 +114,11 @@ export async function readDirData() {
     if (dirData.find(file => file.name === "Map.json")) {
         const map = new TextDecoder().decode(await readFile(dir+"\\Map.json"));
         $map.set(JSON.parse(map));
+        await saveMapToMain(map);
     } else {
-        const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? Number(v) : v);
+        const map = JSON.stringify(deserializeMap(Buffer.from(buf)), (_, v) => typeof v === "bigint" ? v.toString() : v);
         $map.set(JSON.parse(map));
+        await saveMapToMain(map);
     }
 }
 
@@ -164,6 +166,7 @@ export async function openJson() {
     $map.set(json);
     $dir.set(null);
     $dirData.set(null);
+    await saveMapToMain(json);
 }
 
 export async function saveJson() {

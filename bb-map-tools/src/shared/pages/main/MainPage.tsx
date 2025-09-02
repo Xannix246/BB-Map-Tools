@@ -17,14 +17,17 @@ const MainPage = () => {
     const [open, setOpen] = useState(false);
     const [editingName, setEditingName] = useState(false);
     const [editingDesc, setEditingDesc] = useState(false);
+    const [editingId, setEditingId] = useState(false);
     const steam = new SteamManager();
     const ref = useRef<HTMLDivElement | null>(null);
     const [mapLoaded, setMapLoaded] = useState(false);
-    
+    const [username, setUsername] = useState("N/A");
+
     const handleClickOutside = (e: MouseEvent) => {
         if (ref.current && !ref.current.contains(e.target as Node)) {
             setEditingName(false);
             setEditingDesc(false);
+            setEditingId(false);
         }
     };
 
@@ -40,6 +43,9 @@ const MainPage = () => {
         if (map && dir) {
             if (!mapLoaded) {
                 (async () => {
+                    console.log(map?.creatorID);
+                    setUsername(await steam.getUsername(map.creatorID));
+
                     const searchMap = await steam.search(map.name);
                     if (searchMap) {
                         setId(searchMap.id.toString());
@@ -68,8 +74,8 @@ const MainPage = () => {
     return (
         <div className="w-full h-full flex flex-col gap-1">
             <Container>
-                {editingName ? 
-                    <Input 
+                {editingName ?
+                    <Input
                         placeholder="Map name"
                         className={"text-center outline-0 bg-black/50 text-6xl w-full p-0"}
                         value={map?.name || ""}
@@ -79,7 +85,7 @@ const MainPage = () => {
                         ref={ref}
                     />
                     :
-                    <h1 
+                    <h1
                         className="text-center text-6xl w-full"
                         onDoubleClick={() => setEditingName(true)}
                     >{map?.name}</h1>
@@ -88,7 +94,7 @@ const MainPage = () => {
 
             <div className="flex gap-1">
                 <Container className="w-full overflow-auto">
-                    {editingDesc ? 
+                    {editingDesc ?
                         <div className="h-full w-full" ref={ref}>
                             <InputArea
                                 placeholder="Description"
@@ -100,7 +106,7 @@ const MainPage = () => {
                         </div>
                         :
                         <div className="max-h-58 overflow-y-auto">
-                            <h1 
+                            <h1
                                 className="text-2xl text-gray-400 whitespace-pre-line"
                                 onDoubleClick={() => setEditingDesc(true)}
                             >{map?.description || "No description"}</h1>
@@ -114,10 +120,10 @@ const MainPage = () => {
                             :
                             <img src={src} />
                         }
-                        <div 
+                        <div
                             className="absolute flex opacity-0 w-full h-full transition-all duration-150 hover:bg-black/30 hover:opacity-100 hover:backdrop-blur-xs justify-center place-items-center"
                         >
-                            <Button 
+                            <Button
                                 className="bg-black/70 text-xl h-fit"
                                 onClick={async () => {
                                     await changeImage();
@@ -131,11 +137,32 @@ const MainPage = () => {
                 </Container>
             </div>
             <div className="flex gap-1">
-                <Container className="w-full">
-                    <h1 className="text-xl">AuthorID: {map?.creatorID}</h1>
+                <Container className="w-fit">
+                    <div className="text-xl flex gap-1">
+                        AuthorID:
+                        {editingId ?
+                            <Input
+                                placeholder="Author ID"
+                                className={"outline-0 bg-black/50 w-fit p-0"}
+                                value={map?.creatorID.toString() || ""}
+                                onChange={async (e) => {
+                                    await changeData({ authorId: e.target.value });
+                                    if(e.target.value.length === 17) {
+                                        setUsername(await steam.getUsername(BigInt(e.target.value)));
+                                    }
+                                }}
+                                onDoubleClick={() => setEditingId(false)}
+                                autoComplete="off"
+                                ref={ref}
+                            />
+                            :
+                            <h1 onDoubleClick={() => setEditingId(true)}>{map?.creatorID.toString()}</h1>
+                        }
+                        <div className="flex">(<h1 className="text-green">{username}</h1>)</div>
+                    </div>
                 </Container>
-                <Container className="w-full">
-                    <div 
+                <Container className="flex-1">
+                    <div
                         className="flex text-xl gap-2"
                         onDoubleClick={async () => {
                             await changeData({ verified: !map?.verified });
@@ -160,26 +187,26 @@ const MainPage = () => {
                 <Container className="w-full bg-green/50">
                     <div className="text-xl justify-center flex gap-2">
                         <h1>Map was found in</h1>
-                        <a 
-                            className="text-blue hover:underline" 
+                        <a
+                            className="text-blue hover:underline"
                             onClick={async () => await openUrl(`https://steamcommunity.com/sharedfiles/filedetails/?id=${id}`)}
                         >Steam Workshop,</a>
                         <h1>so you can update it.</h1>
                     </div>
-                </Container> 
+                </Container>
             </div>}
             <div className="relative h-full">
                 <div className="absolute right-0 bottom-0">
                     <div className="flex gap-1">
-                        <Button 
+                        <Button
                             className="bg-black/70 text-red hover:text-pink text-xl h-fit"
                             onClick={() => setOpen(true)}
                         >{id && id.length > 0 ? "Update" : "Upload"} map</Button>
-                        <Button 
+                        <Button
                             className="bg-black/70 text-xl h-fit"
                             onClick={saveAsJson}
                         >Save as json</Button>
-                        <Button 
+                        <Button
                             className="bg-black/70 text-xl h-fit"
                             onClick={saveChanges}
                         >Save changes</Button>
@@ -187,7 +214,7 @@ const MainPage = () => {
                 </div>
             </div>
             <div className="absolute">
-                <UploadModal open={open} setOpen={setOpen}/>
+                <UploadModal open={open} setOpen={setOpen} />
             </div>
         </div>
     );

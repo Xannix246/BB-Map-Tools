@@ -51,6 +51,10 @@ export async function loadJsonToParts() {
     saveMapToMain({ ...map });
 }
 
+function parseNumberList(str: string): number[] {
+    return str.split(", ").map(s => s.trim()).filter(s => s.length > 0).map(s => parseFloat(s.replace(",", ".")));
+}
+
 export async function loadTxtToParts() {
     const map = $map.get();
 
@@ -85,15 +89,15 @@ export async function loadTxtToParts() {
             const parts = line.split(" ");
             current.color = parseInt(parts[1], 10);
         } else if (line.startsWith("Position:")) {
-            const [x, y, z] = line.replace("Position:", "").split(",").map(s => parseFloat(s));
+            const [x, y, z] = parseNumberList(line.replace("Position:", ""));
             current.position = { x, y, z };
         } else if (line.startsWith("Rotation:")) {
-            const [x, y, z, w] = line.replace("Rotation:", "").split(",").map(s => parseFloat(s));
+            const [x, y, z, w] = parseNumberList(line.replace("Rotation:", ""));
             current.rotation = { x, y, z, w };
         } else if (line.startsWith("Scale:")) {
-            current.scale = parseFloat(line.replace("Scale:", "").trim());
+            current.scale = parseFloat(line.replace("Scale:", "").trim().replace(",", "."));
         } else if (line.startsWith("Custom color:")) {
-            const [r, g, b, a] = line.replace("Custom color:", "").split(",").map(s => parseFloat(s));
+            const [r, g, b, a] = parseNumberList(line.replace("Custom color:", ""));
             current.customColor = { r, g, b, a };
         } else if (line.trim() === "" && current.blockID !== undefined) {
             blocks.push(current as Block);

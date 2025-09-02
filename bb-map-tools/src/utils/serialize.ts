@@ -34,9 +34,10 @@ function writeQuaternion(q: Quaternion): Buffer {
     return buf;
 }
 
-function writeUInt64LE(value: bigint): Buffer {
+function writeUInt64LE(value: string | number | bigint): Buffer {
     const buf = Buffer.alloc(8);
-    buf.writeBigUInt64LE(value);
+    const big = typeof value === "bigint" ? value : BigInt(value);
+    buf.writeBigUInt64LE(big);
     return buf;
 }
 

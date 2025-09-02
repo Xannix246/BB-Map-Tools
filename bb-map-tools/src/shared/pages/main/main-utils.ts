@@ -1,4 +1,4 @@
-import { $dir, $map, loadMapFromMain } from "@/store";
+import { $dir, $map, loadMapFromMain, saveMapToMain } from "@/store";
 import { message } from "@tauri-apps/plugin-dialog";
 import { exists, readFile, writeFile } from "@tauri-apps/plugin-fs";
 import { open } from '@tauri-apps/plugin-dialog';
@@ -20,7 +20,7 @@ export async function getImage(): Promise<string | undefined> {
 
 export async function saveAsJson() {
     const mapData = await loadMapFromMain() as MapData;
-    if (mapData) $map.set(mapData);
+    if (mapData && mapData.name == $map.get()?.name) $map.set(mapData);
 
     const path = $dir.get() + "\\Map.json";
 
@@ -29,26 +29,31 @@ export async function saveAsJson() {
     await message("Map was saved as json file.", {
         title: "Saved"
     });
+
+    await saveMapToMain($map.get());
 }
 
 export async function saveChanges() {
     try {
         const mapData = await loadMapFromMain() as MapData;
-        if (mapData) $map.set(mapData);
+        console.log(mapData);
+        if (mapData && mapData.name == $map.get()?.name) $map.set(mapData);
         
         const path = $dir.get() + "\\Map.bbmap";
-        const json = $map.get();
-        const preparedJson = Object.create(json);
+        const json = $map.get() as MapData;
+        const preparedJson = { ...json };
 
         if (!json || !preparedJson) return;
 
         if (json.parts) {
-            preparedJson.parts = [];
+            preparedJson.parts = undefined;
+            preparedJson.blocks = [];
 
             for (let part of json.parts) {
                 preparedJson.blocks.push(...part);
             }
         }
+
 
         const map = serializeMap(preparedJson);
 
@@ -57,6 +62,8 @@ export async function saveChanges() {
         await message("Map was saved successfully.", {
             title: "Saved"
         });
+
+        await saveMapToMain($map.get());
     } catch (e) {
         await message(`Failed to save file. \n\n${e}`, { title: 'BB Map Tools', kind: 'error' });
     }
@@ -65,7 +72,8 @@ export async function saveChanges() {
 export async function changeData(data: {
     name?: string,
     description?: string,
-    verified?: boolean
+    verified?: boolean,
+    authorId?: string
 }) {
     const map = $map.get();
 
@@ -73,6 +81,7 @@ export async function changeData(data: {
         if (data.name !== undefined) map.name = data.name;
         if (data.description !== undefined) map.description = data.description;
         if (data.verified !== undefined) map.verified = data.verified;
+        if (data.authorId !== undefined) map.creatorID = BigInt(data.authorId);
 
         $map.set({ ...map });
     }

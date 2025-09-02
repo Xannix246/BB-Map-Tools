@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Vx4gRnt1phg=",
+  "dgSpecHash": "F6ZiYquH6d8=",
   "success": true,
   "projectFilePath": "C:\\Users\\alber\\Documents\\GitHub\\BB-Map-Tools\\SteamManagerServer\\SteamManagerServer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\alber\\.nuget\\packages\\aelsi2.facepunch.steamworks\\2.3.4\\aelsi2.facepunch.steamworks.2.3.4.nupkg.sha512"
+    "C:\\Users\\alber\\.nuget\\packages\\aelsi2.facepunch.steamworks\\2.3.4\\aelsi2.facepunch.steamworks.2.3.4.nupkg.sha512",
+    "C:\\Users\\alber\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.16\\microsoft.net.illink.tasks.8.0.16.nupkg.sha512"
   ],
   "logs": []
 }

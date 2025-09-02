@@ -38,7 +38,7 @@ app.MapGet("/get-map", async (HttpRequest req) =>
         if (string.IsNullOrEmpty(name))
             return Results.BadRequest("Query parameter 'name' is required");
 
-        var results = await SteamManager.Search(name);
+        var results = await steam.Search(name);
 
         var jsonResult = results.Select(item => new
         {
@@ -72,7 +72,7 @@ app.MapPost("/create", async (HttpRequest req) =>
             return Results.BadRequest("Title, ContentPath and PreviewPath are required");
         }
 
-        var fileId = await SteamManager.Upload(
+        var fileId = await steam.Upload(
             data.Title,
             data.ContentPath,
             data.PreviewPath,
@@ -103,7 +103,7 @@ app.MapPost("/update", async (HttpRequest req) =>
             return Results.BadRequest("ItemId, Title, ContentPath and PreviewPath are required");
         }
 
-        var fileId = await SteamManager.Upload(
+        var fileId = await steam.Upload(
             data.Title,
             data.ContentPath,
             data.PreviewPath,
@@ -113,6 +113,25 @@ app.MapPost("/update", async (HttpRequest req) =>
         );
 
         return Results.Json(new { itemId = fileId });
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+});
+
+app.MapGet("/get-username", async (HttpRequest req) =>
+{
+    try
+    {
+        var id = req.Query["id"];
+
+        if (string.IsNullOrEmpty(id))
+            return Results.BadRequest("Query parameter 'id' is required");
+
+        var result = await steam.GetUsername(ulong.Parse(id));
+
+        return Results.Json(new { username = result });
     }
     catch (Exception ex)
     {

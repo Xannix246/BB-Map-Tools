@@ -1,4 +1,5 @@
-﻿using Steamworks;
+﻿using Microsoft.Extensions.Primitives;
+using Steamworks;
 using Steamworks.Data;
 using Steamworks.Ugc;
 
@@ -19,7 +20,7 @@ public class SteamManager : IDisposable
         SteamClient.Init(appId);
     }
 
-    public static async Task<List<Item>> Search(string name)
+    public async Task<List<Item>> Search(string name)
     {
         var userItems = Query.Items
             .WhereUserPublished()
@@ -39,7 +40,7 @@ public class SteamManager : IDisposable
         return total;
     }
 
-    public static async Task<ulong> Upload(
+    public async Task<ulong> Upload(
         string title, 
         string contentPath, 
         string previewPath, 
@@ -76,6 +77,14 @@ public class SteamManager : IDisposable
 
             return workshopItem.FileId;
         }
+    }
+
+    public async Task<string> GetUsername(ulong id)
+    {
+        var username = new Friend(id);
+        await username.RequestInfoAsync();
+
+        return new Friend(id).Name;
     }
 
     public void Dispose()

@@ -7,7 +7,7 @@ Current features:
 * Changing metadata like name, description, thumbnail and etc.
 * Merging maps each other
 * Uploading and updating maps in the Steam Workshop
-* *And maybe outher features in the future* ¯\_(ツ)_/¯
+* *And maybe outher features in the future* ¯\\_(ツ)_/¯
 <br>
 
 

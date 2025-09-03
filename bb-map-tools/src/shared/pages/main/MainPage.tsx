@@ -63,13 +63,13 @@ const MainPage = () => {
     }, [map]);
 
     useEffect(() => {
-        if (editingName || editingDesc) {
+        if (editingName || editingDesc || editingId) {
             document.addEventListener("click", handleClickOutside);
         }
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [editingName, editingDesc]);
+    }, [editingName, editingDesc, editingId]);
 
     return (
         <div className="w-full h-full flex flex-col gap-1">
@@ -184,7 +184,7 @@ const MainPage = () => {
                 </Container>
             </div>
             {id && id.length > 0 && <div className="flex">
-                <Container className="w-full bg-green/50">
+                <Container className="w-full bg-dark-green/70">
                     <div className="text-xl justify-center flex gap-2">
                         <h1>Map was found in</h1>
                         <a

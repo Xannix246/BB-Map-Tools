@@ -18,7 +18,7 @@ const PartList = () => {
     }, []);
 
     return (
-        <div className="bg-[url(/src/assets/bg.jpg)] bg-center bg-no-repeat bg-cover h-screen w-full text-white">
+        <div className="bg-[url(/src/assets/bg-2.jpg)] bg-center bg-no-repeat bg-cover h-screen w-full text-white">
             <TopBar />
             <div className="w-full h-full flex">
                 <div className="w-full m-0.5 mt-14 flex flex-col gap-1">

@@ -24,7 +24,7 @@ const List = ({ activeId, setActiveId }: Props) => {
                 >Part {index}</div>
             ))}
 
-            {map?.parts?.length === 0 || !map?.parts &&
+            {(map?.parts?.length === 0 || !map?.parts) &&
                 <div
                     className="w-full h-full text-xl flex place-content-center place-items-center"
                 >No parts found</div>

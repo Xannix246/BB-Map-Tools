@@ -14,7 +14,7 @@ function App() {
 
     return (
         <div
-            className="bg-[url(/src/assets/bg.jpg)] bg-center bg-no-repeat bg-cover h-screen w-full text-white"
+            className="bg-[url(/src/assets/bg-2.jpg)] bg-center bg-no-repeat bg-cover h-screen w-full text-white"
         >
             <TopBar />
             <Settings open={openSettings} setOpen={setOpenSettings}/>

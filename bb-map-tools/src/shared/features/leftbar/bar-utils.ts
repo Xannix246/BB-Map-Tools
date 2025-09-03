@@ -130,6 +130,7 @@ export async function openPartEditor() {
         width: 600,
         height: 800,
         title: "Part Editor",
+        transparent: true,
         decorations: false
     });
 
